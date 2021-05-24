@@ -1,5 +1,5 @@
 # Grocery App
-
+[![Django CI](https://github.com/delitamakanda/GroceryApp/actions/workflows/django.yml/badge.svg?branch=main)](https://github.com/delitamakanda/GroceryApp/actions/workflows/django.yml)
 Example grocery app in Django 3
 
 ## Installation
@@ -17,10 +17,19 @@ python manage.py makemigrations --dry-run --verbosity 3 # test new models
 ```bash
 python manage.py makemigrations
 python manage.py migrate
+
+celery worker --app=grocery_app --loglevel=info
+
+flower -A grocery_app --port=5555 --broker=redis://localhost:6379/0
 ```
 
 ```python
 
+```
+
+## Tests
+```bash
+python3 -m pytest
 ```
 
 ## Contributing
