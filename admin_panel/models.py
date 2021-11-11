@@ -7,11 +7,23 @@ from .managers import CustomUserManager
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+    GROCER = 1
+    BUYER = 2
+    DELIVERER = 3
+    ADMIN = 4
+    ROLE_CHOICES = (
+        (GROCER, 'grocer'),
+        (BUYER, 'buyer'),
+        (DELIVERER, 'deliverer'),
+        (ADMIN, 'admin'),
+    )
     # username = None
     email = models.EmailField(_('Email'), unique=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
+    user_type = models.PositiveSmallIntegerField(
+        choices=ROLE_CHOICES, default=BUYER)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -19,4 +31,4 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.email
+        return self.email + ' ' + self.get_user_type_display()
