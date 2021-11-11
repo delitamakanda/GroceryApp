@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 import datetime
+from decouple import config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+c-wq0-565(-1ol^&v!wm9(4!qcurgot%t(k2ym+$!bd&%-nm)'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'djstripe',
 
     'admin_panel.apps.AdminPanelConfig',
     'buyers_panel.apps.BuyersPanelConfig',
@@ -154,7 +156,7 @@ REST_FRAMEWORK = {
     ),
 }
 
-## JWT
+# JWT
 JWT_AUTH = {
     'JWT_ENCODE_HANDLER':
     'rest_framework_jwt.utils.jwt_encode_handler',
@@ -191,3 +193,11 @@ JWT_AUTH = {
 
 }
 
+# STRIPE
+
+STRIPE_TEST_PUBLIC_KEY = config("STRIPE_TEST_PUBLIC_KEY")
+STRIPE_TEST_SECRET_KEY = config("STRIPE_TEST_SECRET_KEY")
+STRIPE_LIVE_MODE = False
+DJSTRIPE_WEBHOOK_SECRET = config("DJSTRIPE_WEBHOOK_SECRET_KEY")
+DJSTRIPE_USE_NATIVE_JSONFIELD = True
+DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"

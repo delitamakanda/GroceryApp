@@ -26,6 +26,7 @@ router.register(r'users', UserViewSet)
 
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path("stripe/", include("djstripe.urls", namespace='djstripe')),
 
     path('admin/', admin.site.urls),
     path('api-token-auth/', obtain_jwt_token),

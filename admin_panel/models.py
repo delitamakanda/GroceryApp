@@ -32,3 +32,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email + ' ' + self.get_user_type_display()
+
+
+class StripeSubscription(models.Model):
+    start_date = models.DateTimeField()
+    status = models.CharField(max_length=20)
