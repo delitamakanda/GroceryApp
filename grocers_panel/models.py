@@ -1,3 +1,7 @@
 from django.db import models
 
-# Create your models here.
+from admin_panel.models import CustomUser
+
+
+class Grocer(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)

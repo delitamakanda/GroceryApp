@@ -1,3 +1,9 @@
 from django.db import models
 
-# Create your models here.
+from django.db import models
+
+from admin_panel.models import CustomUser
+
+
+class Deliverer(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
