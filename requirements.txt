@@ -34,3 +34,4 @@ djangorestframework==3.12.4
 djangorestframework-jwt==1.11.0
 dj-stripe==2.5.1
 python-decouple==3.5
+django-cors-headers==3.10.0
