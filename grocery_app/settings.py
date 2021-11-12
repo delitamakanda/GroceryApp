@@ -197,10 +197,10 @@ JWT_AUTH = {
 
 # STRIPE
 
-STRIPE_TEST_PUBLIC_KEY = config("STRIPE_TEST_PUBLIC_KEY", "<stripe-test-public-key>")
-STRIPE_TEST_SECRET_KEY = config("STRIPE_TEST_SECRET_KEY", "<stripe-test-secret-key>")
+STRIPE_TEST_PUBLIC_KEY = config("STRIPE_TEST_PUBLIC_KEY", "stripe_test_public_key")
+STRIPE_TEST_SECRET_KEY = config("STRIPE_TEST_SECRET_KEY", "stripe_test_secret_key")
 STRIPE_LIVE_MODE = False
-DJSTRIPE_WEBHOOK_SECRET = config("DJSTRIPE_WEBHOOK_SECRET_KEY", "<djstripe-webhook-secret-key>")
+DJSTRIPE_WEBHOOK_SECRET = config("DJSTRIPE_WEBHOOK_SECRET_KEY", "whsec_xxx")
 DJSTRIPE_USE_NATIVE_JSONFIELD = True
 DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"
 
