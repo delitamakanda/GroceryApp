@@ -23,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY', 'dummy_secret_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG')
+DEBUG = config('DEBUG', True)
 
 ALLOWED_HOSTS = []
 
@@ -141,8 +141,8 @@ AUTH_USER_MODEL = 'admin_panel.CustomUser'
 
 # celery
 
-CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://localhost:6379/0")
-CELERY_RESULT_BACKEND = os.environ.get(
+CELERY_BROKER_URL = config("CELERY_BROKER", "redis://localhost:6379/0")
+CELERY_RESULT_BACKEND = config(
     "CELERY_BROKER", "redis://localhost:6379/0")
 
 # REST FRAMEWORK
@@ -197,10 +197,10 @@ JWT_AUTH = {
 
 # STRIPE
 
-STRIPE_TEST_PUBLIC_KEY = config("STRIPE_TEST_PUBLIC_KEY")
-STRIPE_TEST_SECRET_KEY = config("STRIPE_TEST_SECRET_KEY")
+STRIPE_TEST_PUBLIC_KEY = config("STRIPE_TEST_PUBLIC_KEY", "<stripe-test-public-key>")
+STRIPE_TEST_SECRET_KEY = config("STRIPE_TEST_SECRET_KEY", "<stripe-test-secret-key>")
 STRIPE_LIVE_MODE = False
-DJSTRIPE_WEBHOOK_SECRET = config("DJSTRIPE_WEBHOOK_SECRET_KEY")
+DJSTRIPE_WEBHOOK_SECRET = config("DJSTRIPE_WEBHOOK_SECRET_KEY", "<djstripe-webhook-secret-key>")
 DJSTRIPE_USE_NATIVE_JSONFIELD = True
 DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"
 
