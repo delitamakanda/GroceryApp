@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  SECRET_KEY: ${{ secrets.SECRET_KEY }}
+  DEBUG: ${{ secrets.DEBUG }}
+
 jobs:
   build:
 
