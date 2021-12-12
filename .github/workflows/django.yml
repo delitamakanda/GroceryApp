@@ -9,6 +9,10 @@ on:
 env:
   SECRET_KEY: ${{ secrets.SECRET_KEY }}
   DEBUG: ${{ secrets.DEBUG }}
+  CELERY_BROKER: ${{ secrets.CELERY_BROKER }}
+  DJSTRIPE_WEBHOOK_SECRET_KEY: ${{ secrets.DJSTRIPE_WEBHOOK_SECRET_KEY }}
+  STRIPE_TEST_PUBLIC_KEY: ${{ secrets.STRIPE_TEST_PUBLIC_KEY }}
+  STRIPE_TEST_SECRET_KEY: ${{ secrets.STRIPE_TEST_SECRET_KEY }}
 
 jobs:
   build:
