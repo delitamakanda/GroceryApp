@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -131,6 +132,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -141,9 +143,8 @@ AUTH_USER_MODEL = 'admin_panel.CustomUser'
 
 # celery
 
-CELERY_BROKER_URL = config("CELERY_BROKER", "redis://localhost:6379/0")
-CELERY_RESULT_BACKEND = config(
-    "CELERY_BROKER", "redis://localhost:6379/0")
+CELERY_BROKER_URL = config("CELERY_BROKER")
+CELERY_RESULT_BACKEND = config("CELERY_BROKER")
 
 # REST FRAMEWORK
 
@@ -197,10 +198,10 @@ JWT_AUTH = {
 
 # STRIPE
 
-STRIPE_TEST_PUBLIC_KEY = config("STRIPE_TEST_PUBLIC_KEY", "stripe_test_public_key")
-STRIPE_TEST_SECRET_KEY = config("STRIPE_TEST_SECRET_KEY", "sk_test_secret_key")
+STRIPE_TEST_PUBLIC_KEY = config("STRIPE_TEST_PUBLIC_KEY")
+STRIPE_TEST_SECRET_KEY = config("STRIPE_TEST_SECRET_KEY")
 STRIPE_LIVE_MODE = False
-DJSTRIPE_WEBHOOK_SECRET = config("DJSTRIPE_WEBHOOK_SECRET_KEY", "whsec_xxx")
+DJSTRIPE_WEBHOOK_SECRET = config("DJSTRIPE_WEBHOOK_SECRET_KEY")
 DJSTRIPE_USE_NATIVE_JSONFIELD = True
 DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"
 
