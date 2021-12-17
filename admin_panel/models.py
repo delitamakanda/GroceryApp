@@ -37,3 +37,29 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 class StripeSubscription(models.Model):
     start_date = models.DateTimeField()
     status = models.CharField(max_length=20)
+
+
+class Category(models.Model):
+    title = models.CharField(max_length=255)
+    img = models.ImageField(upload_to='category', blank=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['title']
+        verbose_name_plural = 'Categories'
+        verbose_name = 'Category'
+
+
+class Highlights(models.Model):
+    title = models.CharField(max_length=255)
+    img = models.ImageField(upload_to='highlights', blank=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['-title']
+        verbose_name_plural = 'Highlights'
+        verbose_name = 'Highlight'
