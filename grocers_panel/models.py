@@ -16,6 +16,7 @@ class Meal(models.Model):
     price = models.IntegerField()
     info = models.CharField(max_length=255)
     img = models.ImageField(upload_to='meal/%Y/%m/%d', blank=True)
+    grocer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name
@@ -28,7 +29,8 @@ class Meal(models.Model):
 
 class Food(models.Model):
     category = models.CharField(max_length=255)
-    meals = models.ForeignKey(Meal, on_delete=models.CASCADE)
+    meals = models.ManyToManyField(Meal)
+    grocer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.category
@@ -40,13 +42,14 @@ class Food(models.Model):
 
 class Shop(models.Model):
     name = models.CharField(max_length=255)
+    grocer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     # rating = models.ManyToManyField(CustomUser, through=Rating)
-    ratings = models.IntegerField(blank=True)
+    ratings = models.IntegerField(default=0)
     img = models.ImageField(upload_to='shop/%Y/%m/%d', blank=True)
     distance = models.FloatField()
     tags = TaggableManager()
     about = models.TextField(max_length=1000)
-    food = models.ForeignKey(Food, on_delete=models.CASCADE)
+    food = models.ManyToManyField(Food)
 
     def __str__(self):
         return self.name
