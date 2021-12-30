@@ -13,7 +13,7 @@ class Grocer(models.Model):
 
 class Meal(models.Model):
     name = models.CharField(max_length=255)
-    price = models.IntegerField()
+    price = models.FloatField()
     info = models.CharField(max_length=255)
     img = models.ImageField(upload_to='meal/%Y/%m/%d', blank=True)
     grocer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
@@ -41,6 +41,16 @@ class Food(models.Model):
 
 
 class Shop(models.Model):
+    SHORT = 1
+    MEDIUM = 2
+    LONG = 3
+    VERY_LONG = 4
+    DURATION_CHOICES = (
+        (SHORT, '10 - 15'),
+        (MEDIUM, '20 - 25'),
+        (LONG, '35 - 45'),
+        (VERY_LONG, '55 - 65'),
+    )
     name = models.CharField(max_length=255)
     grocer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     # rating = models.ManyToManyField(CustomUser, through=Rating)
@@ -49,6 +59,7 @@ class Shop(models.Model):
     distance = models.FloatField()
     tags = TaggableManager()
     about = models.TextField(max_length=1000)
+    duration = models.PositiveSmallIntegerField(default=LONG, choices=DURATION_CHOICES)
     food = models.ManyToManyField(Food)
 
     def __str__(self):

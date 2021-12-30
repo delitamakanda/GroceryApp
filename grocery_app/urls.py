@@ -19,9 +19,25 @@ from django.urls import path
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 from rest_framework import routers
 
-from delivery_panel.api.views import UserViewSet
+from delivery_panel.api.views import (
+    UserViewSet
+)
+
+from admin_panel.api.views import (
+    CategoryViewSet,
+    HighlightsViewSet,
+)
+
+from grocers_panel.api.views import (
+    GrocerViewSet,
+    ShopViewSet,
+)
 
 router = routers.DefaultRouter()
+router.register(r'categories', CategoryViewSet)
+router.register(r'grocers', GrocerViewSet)
+router.register(r'shops', ShopViewSet)
+router.register(r'highligths', HighlightsViewSet)
 router.register(r'users', UserViewSet)
 
 urlpatterns = [
