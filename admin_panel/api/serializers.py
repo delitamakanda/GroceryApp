@@ -5,11 +5,10 @@ from grocers_panel.models import Shop
 
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
-    count = serializers.SerializerMethodField()
 
     class Meta:
         model = Category
-        fields = ['title', 'img', 'count']
+        fields = ['title', 'img']
 
     def get_count(self, obj):
         return len(Shop.objects.all())

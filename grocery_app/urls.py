@@ -35,7 +35,6 @@ from grocers_panel.api.views import (
 
 router = routers.DefaultRouter()
 router.register(r'categories', CategoryViewSet)
-router.register(r'grocers', GrocerViewSet)
 router.register(r'shops', ShopViewSet)
 router.register(r'highligths', HighlightsViewSet)
 router.register(r'users', UserViewSet)

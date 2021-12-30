@@ -54,7 +54,7 @@ class Shop(models.Model):
     name = models.CharField(max_length=255)
     grocer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     # rating = models.ManyToManyField(CustomUser, through=Rating)
-    ratings = models.IntegerField(default=0)
+    # ratings = models.IntegerField(default=0)
     img = models.ImageField(upload_to='shop/%Y/%m/%d', blank=True)
     distance = models.FloatField()
     tags = TaggableManager()
@@ -78,6 +78,6 @@ class Rating(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.rate
+        return str(self.rate)
 
 # queryset be like shop.rating_set.all()
