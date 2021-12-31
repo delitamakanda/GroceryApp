@@ -1,5 +1,6 @@
-from django.db.models import Avg
+from django.db.models import Avg, Count
 from rest_framework import serializers
+from taggit.models import Tag
 from taggit.serializers import (TagListSerializerField, TaggitSerializer)
 from delivery_panel.api.serializers import UserSerializer
 from grocers_panel.models import Meal, Grocer, Food, Shop, Rating
@@ -31,6 +32,21 @@ class FoodSerializer(serializers.ModelSerializer):
         fields = ['category', 'meals']
 
 
+class OfferSerializer(serializers.ModelSerializer):
+    count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Tag
+        fields = ['name', 'count']
+
+    def get_count(self, obj):
+        shops = Shop.objects.filter(tags=obj)
+        tags = Shop.tags.filter(shop__in=shops)
+        tags = tags.annotate(tag_count=Count('taggit_taggeditem_items'))
+        print(obj.__dict__)
+        return len(tags)
+
+
 class ShopSerializer(TaggitSerializer, serializers.ModelSerializer):
     tags = TagListSerializerField()
     rating = serializers.SerializerMethodField()
@@ -45,9 +61,10 @@ class ShopSerializer(TaggitSerializer, serializers.ModelSerializer):
                   'distance', 'img', 'tags', 'about', 'duration', 'food']
 
     def get_rating(self, obj):
-        rating_average = list(obj.rating_set.aggregate(Avg('rate')).values())[0]
+        rating_average = list(
+            obj.rating_set.aggregate(Avg('rate')).values())[0]
         return rating_average
-    
+
     def get_ratings(self, obj):
         return len(obj.rating_set.all())
 

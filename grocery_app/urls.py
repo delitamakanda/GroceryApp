@@ -23,20 +23,23 @@ from delivery_panel.api.views import (
     UserViewSet
 )
 
+from grocers_panel.api.views import (
+    ShopViewSet,
+    RatingViewSet,
+    OfferViewSet,
+)
+
 from admin_panel.api.views import (
     CategoryViewSet,
     HighlightsViewSet,
 )
 
-from grocers_panel.api.views import (
-    GrocerViewSet,
-    ShopViewSet,
-)
-
 router = routers.DefaultRouter()
+router.register(r'ratings', RatingViewSet)
 router.register(r'categories', CategoryViewSet)
+router.register(r'highlights', HighlightsViewSet)
+router.register(r'offers', OfferViewSet)
 router.register(r'shops', ShopViewSet)
-router.register(r'highligths', HighlightsViewSet)
 router.register(r'users', UserViewSet)
 
 urlpatterns = [
