@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser
+from .models import CustomUser, Category, Highlights
 from grocers_panel.models import Grocer
 from delivery_panel.models import Deliverer
 from buyers_panel.models import Buyer
@@ -59,3 +59,5 @@ class CustomUserAdmin(UserAdmin):
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Category)
+admin.site.register(Highlights)
