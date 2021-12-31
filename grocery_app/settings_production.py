@@ -45,4 +45,4 @@ AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
 
-DEFAULT_FILE_STORAGE = 'backend.storage_backends.MediaStorage'
+DEFAULT_FILE_STORAGE = 'grocery_app.storage_backends.MediaStorage'
