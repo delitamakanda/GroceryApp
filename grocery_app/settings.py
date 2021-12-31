@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'djstripe',
     'corsheaders',
     'taggit',
+    'storages',
 
     'admin_panel.apps.AdminPanelConfig',
     'buyers_panel.apps.BuyersPanelConfig',
