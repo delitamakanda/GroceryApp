@@ -35,6 +35,13 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 
+# admin
+SERVER_EMAIL = config('ADMIN_EMAIL')
+
+ADMINS = [
+    (config('ADMIN_NAME'), config('ADMIN_EMAIL')),
+]
+
 # Media storages
 
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
@@ -46,3 +53,13 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 
 DEFAULT_FILE_STORAGE = 'grocery_app.storage_backends.MediaStorage'
+
+# SMTP Email servier
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('SENDGRID_SERVER')
+EMAIL_PORT = config('SENDGRID_PORT')
+EMAIL_HOST_USER = config('SENDGRID_USERNAME')
+EMAIL_HOST_PASSWORD = config('SENDGRID_PASSWORD')
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = SERVER_EMAIL
