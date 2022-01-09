@@ -20,7 +20,7 @@ class ShopViewSet(viewsets.ModelViewSet):
 
 
 class OfferViewSet(viewsets.ModelViewSet):
-    queryset = Tag.objects.all()
+    queryset = Tag.objects.all()[:10]
     serializer_class = OfferSerializer
 
 

@@ -43,7 +43,6 @@ class OfferSerializer(serializers.ModelSerializer):
         shops = Shop.objects.filter(tags=obj)
         tags = Shop.tags.filter(shop__in=shops)
         tags = tags.annotate(tag_count=Count('taggit_taggeditem_items'))
-        print(obj.__dict__)
         return len(tags)
 
 
