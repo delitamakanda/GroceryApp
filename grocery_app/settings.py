@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'taggit',
     'storages',
+    'django_countries',
+    'multiselectfield',
 
     'admin_panel.apps.AdminPanelConfig',
     'buyers_panel.apps.BuyersPanelConfig',

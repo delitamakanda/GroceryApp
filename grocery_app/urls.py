@@ -36,7 +36,14 @@ from admin_panel.api.views import (
     HighlightsViewSet,
 )
 
+from buyers_panel.api.views import (
+    BillingAddressViewSet,
+    OrderViewSet,
+)
+
 router = routers.DefaultRouter()
+router.register(r'billing-addresses', BillingAddressViewSet)
+router.register(r'orders', OrderViewSet)
 router.register(r'ratings', RatingViewSet)
 router.register(r'categories', CategoryViewSet)
 router.register(r'highlights', HighlightsViewSet)

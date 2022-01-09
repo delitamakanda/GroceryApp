@@ -1,8 +1,24 @@
 from taggit.managers import TaggableManager
+from multiselectfield import MultiSelectField
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 from admin_panel.models import CustomUser, StripeSubscription
+
+CATEGORY_CHOICES = (
+    ('TR', 'Trier'),
+    ('OF', 'Offres'),
+    ('DI', 'Diététique')
+)
+
+LABEL_CHOICES = (
+    ('T', 'Toutes les offres'),
+    ('J', 'Jusqu\'à 50% de réduction'),
+    ('C', 'Choix de restaurants'),
+    ('P', 'Commandez plus, économisez plus'),
+    ('A', 'Articles gratuits'),
+    ('M', 'Meals Deals')
+)
 
 
 class Grocer(models.Model):
@@ -15,8 +31,13 @@ class Meal(models.Model):
     name = models.CharField(max_length=255)
     price = models.FloatField()
     info = models.CharField(max_length=255)
+    discount_price = models.FloatField(blank=True, null=True)
+    category = MultiSelectField(choices=CATEGORY_CHOICES, default='TR')
+    label = MultiSelectField(choices=LABEL_CHOICES, default='T')
+    stock_no = models.CharField(max_length=10, default=99)
     img = models.ImageField(upload_to='meal/%Y/%m/%d', blank=True)
     grocer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -59,7 +80,8 @@ class Shop(models.Model):
     distance = models.FloatField()
     tags = TaggableManager()
     about = models.TextField(max_length=1000)
-    duration = models.PositiveSmallIntegerField(default=LONG, choices=DURATION_CHOICES)
+    duration = models.PositiveSmallIntegerField(
+        default=LONG, choices=DURATION_CHOICES)
     food = models.ManyToManyField(Food)
 
     def __str__(self):

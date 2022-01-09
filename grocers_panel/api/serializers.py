@@ -21,7 +21,7 @@ class GrocerSerializer(serializers.ModelSerializer):
 class MealSerializer(serializers.ModelSerializer):
     class Meta:
         model = Meal
-        fields = ['id', 'name', 'img', 'price', 'info']
+        fields = ['id', 'name', 'img', 'price', 'info', 'discount_price', 'category', 'label', 'stock_no', 'is_active']
 
 
 class FoodSerializer(serializers.ModelSerializer):
