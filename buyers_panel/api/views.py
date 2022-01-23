@@ -10,5 +10,9 @@ class OrderViewSet(viewsets.ModelViewSet):
 
 
 class BillingAddressViewSet(viewsets.ModelViewSet):
-    queryset = BillingAddress.objects.all()
     serializer_class = BillingAddressSerializer
+    queryset = BillingAddress.objects.all()
+
+    def get_queryset(self):
+        billing_addresses = BillingAddress.objects.filter(user=self.request.user)
+        return billing_addresses
