@@ -51,10 +51,12 @@ INSTALLED_APPS = [
     'django_countries',
     'multiselectfield',
 
+    'grocery_api.apps.GroceryApiConfig',
     'admin_panel.apps.AdminPanelConfig',
     'buyers_panel.apps.BuyersPanelConfig',
     'delivery_panel.apps.DeliveryPanelConfig',
     'grocers_panel.apps.GrocersPanelConfig',
+
 ]
 
 SITE_ID = 1
@@ -221,8 +223,14 @@ DJSTRIPE_FOREIGN_KEY_TO_FIELD = "id"
 
 # CORS
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8080',
-    'http://localhost:3000',
-    'http://localhost:4200',
-]
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:8080',
+#     'http://localhost:3000',
+#     'http://localhost:4200',
+# ]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+# email
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

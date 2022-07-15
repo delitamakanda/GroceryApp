@@ -20,6 +20,7 @@ from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify
 from rest_framework import routers
 from django.conf.urls.static import static
 from django.conf import settings
+from rest_framework.urlpatterns import format_suffix_patterns
 
 from delivery_panel.api.views import (
     UserViewSet
@@ -41,6 +42,12 @@ from buyers_panel.api.views import (
     OrderViewSet,
 )
 
+from grocery_api.api.views import (
+    FoodViewSet,
+    PopularFoodViewSet,
+    RecommendedFoodViewSet,
+)
+
 router = routers.DefaultRouter()
 router.register(r'billing-addresses', BillingAddressViewSet)
 router.register(r'orders', OrderViewSet)
@@ -50,6 +57,9 @@ router.register(r'highlights', HighlightsViewSet)
 router.register(r'offers', OfferViewSet)
 router.register(r'shops', ShopViewSet)
 router.register(r'users', UserViewSet)
+
+router2 = routers.DefaultRouter()
+router2.register(r'products(/?P<category>[a-zA-Z]+)', FoodViewSet)
 
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
@@ -61,8 +71,24 @@ urlpatterns = [
     path('api-token-verify/', verify_jwt_token),
 
     path('api/', include(router.urls)),
-
+    path('api/v1/', include(router2.urls)),
 ]
+
+search_product_list = FoodViewSet.as_view({
+    'get': 'list',
+})
+popular_product_list = PopularFoodViewSet.as_view({
+    'get': 'list',
+})
+recommended_product_list = RecommendedFoodViewSet.as_view({
+    'get': 'list',
+})
+
+urlpatterns += format_suffix_patterns([
+    path('api/v1/products/popular/', popular_product_list, name='popular_products'),
+    path('api/v1/products/recommended/', recommended_product_list, name='recommended_products'),
+    path('api/v1/products/', search_product_list, name='search_product'),
+])
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
