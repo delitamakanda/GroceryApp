@@ -1,4 +1,4 @@
-from rest_framework import viewsets, response
+from rest_framework import viewsets, response, permissions
 from grocery_api.models import Food
 from .serializers import FoodSerializer
 from grocery_api.pagination import LargeResultsSetPagination, StandardResultsSetPagination
@@ -11,12 +11,13 @@ value_map = {v: k for k, v in Food.CATEGORY_CHOICES}
 class FoodViewSet(viewsets.ModelViewSet):
     queryset = Food.objects.all()
     serializer_class = FoodSerializer
+    pagination_class = LargeResultsSetPagination
+    permission_classes = [permissions.AllowAny,] #todo: remove
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = (
         'price',
     )
     search_fields = ['name', 'description',]
-    pagination_class = LargeResultsSetPagination
 
     def get_object(self):
         return self.get_queryset()
@@ -28,9 +29,10 @@ class FoodViewSet(viewsets.ModelViewSet):
 
 
 class PopularFoodViewSet(viewsets.ModelViewSet):
-    queryset = Food.objects.filter(category=value_map['popular'])  
+    queryset = Food.objects.filter(category=value_map['popular'])[:10]  
     serializer_class = FoodSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    permission_classes = [permissions.AllowAny,] #todo: remove
     ordering_fields = (
         'price',
     )
@@ -39,8 +41,9 @@ class PopularFoodViewSet(viewsets.ModelViewSet):
 
 
 class RecommendedFoodViewSet(viewsets.ModelViewSet):
-    queryset = Food.objects.filter(category=value_map['recommended'])
+    queryset = Food.objects.filter(category=value_map['recommended'])[:10]
     serializer_class = FoodSerializer
+    permission_classes = [permissions.AllowAny,] #todo: remove
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = (
         'price',

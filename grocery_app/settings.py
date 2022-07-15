@@ -174,7 +174,9 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_PAGINATION_CLASS': 'grocery_api.pagination.StandardResultsSetPagination',
-    'PAGE_SIZE': 100
+    'PAGE_SIZE': 100,
+    'SEARCH_PARAM': 'q',
+    'ORDERING_PARAM': 'ordering',
 }
 
 # JWT
