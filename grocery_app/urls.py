@@ -46,6 +46,7 @@ from grocery_api.api.views import (
     FoodViewSet,
     PopularFoodViewSet,
     RecommendedFoodViewSet,
+    DrinksViewSet,
 )
 
 router = routers.DefaultRouter()
@@ -83,10 +84,14 @@ popular_product_list = PopularFoodViewSet.as_view({
 recommended_product_list = RecommendedFoodViewSet.as_view({
     'get': 'list',
 })
+drinks_list = DrinksViewSet.as_view({
+    'get': 'list',
+})
 
 urlpatterns += format_suffix_patterns([
     path('api/v1/products/popular/', popular_product_list, name='popular_products'),
     path('api/v1/products/recommended/', recommended_product_list, name='recommended_products'),
+    path('api/v1/products/drinks/', drinks_list, name='drinks'),
     path('api/v1/products/', search_product_list, name='search_product'),
 ])
 

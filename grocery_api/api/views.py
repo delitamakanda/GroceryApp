@@ -50,3 +50,15 @@ class RecommendedFoodViewSet(viewsets.ModelViewSet):
     )
     search_fields = ['name', 'description',]
     pagination_class = StandardResultsSetPagination
+
+
+class DrinksViewSet(viewsets.ModelViewSet):
+    queryset = Food.objects.filter(category=value_map['drinks'])[:10]
+    serializer_class = FoodSerializer
+    permission_classes = [permissions.AllowAny,] #todo: remove
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    ordering_fields = (
+        'price',
+    )
+    search_fields = ['name', 'description',]
+    pagination_class = StandardResultsSetPagination
