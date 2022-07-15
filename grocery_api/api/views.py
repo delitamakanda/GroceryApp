@@ -1,6 +1,7 @@
 from rest_framework import viewsets, response
 from grocery_api.models import Food
 from .serializers import FoodSerializer
+from grocery_api.pagination import LargeResultsSetPagination, StandardResultsSetPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 
@@ -15,6 +16,7 @@ class FoodViewSet(viewsets.ModelViewSet):
         'price',
     )
     search_fields = ['name', 'description',]
+    pagination_class = LargeResultsSetPagination
 
     def get_object(self):
         return self.get_queryset()
@@ -33,6 +35,7 @@ class PopularFoodViewSet(viewsets.ModelViewSet):
         'price',
     )
     search_fields = ['name', 'description',]
+    pagination_class = StandardResultsSetPagination
 
 
 class RecommendedFoodViewSet(viewsets.ModelViewSet):
@@ -43,3 +46,4 @@ class RecommendedFoodViewSet(viewsets.ModelViewSet):
         'price',
     )
     search_fields = ['name', 'description',]
+    pagination_class = StandardResultsSetPagination
