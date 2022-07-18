@@ -16,9 +16,4 @@ class Migration(migrations.Migration):
             name='food_pk',
             field=models.AutoField(editable=False, primary_key=True, serialize=False, unique=True),
         ),
-        migrations.AlterField(
-            model_name='food',
-            name='id',
-            field=models.UUIDField(default=uuid.uuid4, editable=False, unique=True),
-        ),
     ]
