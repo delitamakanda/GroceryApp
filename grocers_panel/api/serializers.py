@@ -3,7 +3,7 @@ from rest_framework import serializers
 from taggit.models import Tag
 from taggit.serializers import (TagListSerializerField, TaggitSerializer)
 from delivery_panel.api.serializers import UserSerializer
-from grocers_panel.models import Meal, Grocer, Food, Shop, Rating
+from grocers_panel.models import Meal, Grocer, FoodMeal, Shop, Rating
 
 
 class RatingSerializer(serializers.ModelSerializer):
@@ -28,7 +28,7 @@ class FoodSerializer(serializers.ModelSerializer):
     meals = MealSerializer(many=True)
 
     class Meta:
-        model = Food
+        model = FoodMeal
         fields = ['category', 'meals']
 
 

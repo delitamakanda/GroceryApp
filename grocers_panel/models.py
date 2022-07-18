@@ -48,7 +48,7 @@ class Meal(models.Model):
         verbose_name = 'Meal'
 
 
-class Food(models.Model):
+class FoodMeal(models.Model):
     category = models.CharField(max_length=255)
     meals = models.ManyToManyField(Meal)
     grocer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
@@ -82,7 +82,7 @@ class Shop(models.Model):
     about = models.TextField(max_length=1000)
     duration = models.PositiveSmallIntegerField(
         default=LONG, choices=DURATION_CHOICES)
-    food = models.ManyToManyField(Food)
+    food = models.ManyToManyField(FoodMeal)
 
     def __str__(self):
         return self.name

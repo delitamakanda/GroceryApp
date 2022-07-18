@@ -1,5 +1,5 @@
 from django.contrib import admin
-from grocers_panel.models import Shop, Food, Meal, Rating
+from grocers_panel.models import Shop, FoodMeal, Meal, Rating
 
 
 class MealAdmin(admin.ModelAdmin):
@@ -7,7 +7,7 @@ class MealAdmin(admin.ModelAdmin):
 
 
 class FoodAdmin(admin.ModelAdmin):
-    model = Food
+    model = FoodMeal
 
 
 class ShopAdmin(admin.ModelAdmin):
@@ -24,6 +24,6 @@ class ShopAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Rating)
-admin.site.register(Food, FoodAdmin)
+admin.site.register(FoodMeal, FoodAdmin)
 admin.site.register(Meal, MealAdmin)
 admin.site.register(Shop, ShopAdmin)
