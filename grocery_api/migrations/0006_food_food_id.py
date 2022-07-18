@@ -32,4 +32,9 @@ class Migration(migrations.Migration):
             field=models.IntegerField(editable=False, unique=True),
             preserve_default=False,
         ),
+        migrations.AlterField(
+            model_name='food',
+            name='id',
+            field=models.UUIDField(default=uuid.uuid4, editable=False, primary_key=False),
+        ),
     ]
