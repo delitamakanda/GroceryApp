@@ -11,7 +11,7 @@ class Food(models.Model):
         (RECOMMENDED, 'recommended'),
         (DRINKS, 'drinks'),
     )
-    id = models.UUIDField(default=uuid.uuid4, editable=False)
+    id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     food_pk = models.AutoField(unique=True, editable=False, primary_key=True)
     category = models.PositiveSmallIntegerField(choices=CATEGORY_CHOICES, default=RECOMMENDED)
     name = models.CharField(max_length=255)
