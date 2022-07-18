@@ -6,7 +6,7 @@ def create_food_id(apps, schema_editor):
     MyModel = apps.get_model('grocery_api', 'food')
     food_id = 1
     for my_model in MyModel.objects.all().iterator(chunk_size=50):
-        my_model.food_id = food_id
+        my_model.food_pk = food_id
         my_model.save()
         food_id += 1
 
@@ -21,14 +21,14 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='food',
-            name='food_id',
+            name='food_pk',
             field=models.IntegerField(editable=False, null=True),
             preserve_default=False,
         ),
         migrations.RunPython(create_food_id, reverse_code=migrations.RunPython.noop),
         migrations.AlterField(
             model_name='food',
-            name='food_id',
+            name='food_pk',
             field=models.IntegerField(editable=False, unique=True),
             preserve_default=False,
         ),

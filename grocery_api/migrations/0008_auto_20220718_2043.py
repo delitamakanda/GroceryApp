@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterField(
             model_name='food',
-            name='food_id',
+            name='food_pk',
             field=models.AutoField(editable=False, primary_key=True, serialize=False, unique=True),
         ),
         migrations.AlterField(
