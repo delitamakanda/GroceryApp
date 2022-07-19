@@ -1,4 +1,3 @@
-import uuid
 from django.db import models
 
 
@@ -11,8 +10,6 @@ class Food(models.Model):
         (RECOMMENDED, 'recommended'),
         (DRINKS, 'drinks'),
     )
-    id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    food_pk = models.AutoField(unique=True, editable=False, primary_key=True)
     category = models.PositiveSmallIntegerField(choices=CATEGORY_CHOICES, default=RECOMMENDED)
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=10, decimal_places=2)
