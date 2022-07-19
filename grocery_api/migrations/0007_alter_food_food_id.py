@@ -25,10 +25,4 @@ class Migration(migrations.Migration):
             preserve_default=False,
         ),
         migrations.RunPython(create_food_id, reverse_code=migrations.RunPython.noop),
-        migrations.AlterField(
-            model_name='food',
-            name='food_pk',
-            field=models.IntegerField(editable=False, unique=True),
-            preserve_default=False,
-        ),
     ]
