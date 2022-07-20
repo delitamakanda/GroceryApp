@@ -1,6 +1,6 @@
 
 import datetime
-from delivery_panel.api.serializers import UserSerializer
+from admin_panel.api.serializers import UserSerializer
 from django.utils import timezone
 
 from rest_framework_jwt.settings import api_settings

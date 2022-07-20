@@ -2,7 +2,7 @@ from django.db.models import Avg, Count
 from rest_framework import serializers
 from taggit.models import Tag
 from taggit.serializers import (TagListSerializerField, TaggitSerializer)
-from delivery_panel.api.serializers import UserSerializer
+from admin_panel.api.serializers import UserSerializer
 from grocers_panel.models import Meal, Grocer, FoodMeal, Shop, Rating
 
 

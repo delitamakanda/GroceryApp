@@ -16,15 +16,13 @@ Including another URLconf
 from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path
+from django.views.generic import TemplateView
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 from rest_framework import routers
 from django.conf.urls.static import static
 from django.conf import settings
 from rest_framework.urlpatterns import format_suffix_patterns
-
-from delivery_panel.api.views import (
-    UserViewSet
-)
+from rest_framework.documentation import include_docs_urls
 
 from grocers_panel.api.views import (
     ShopViewSet,
@@ -35,6 +33,10 @@ from grocers_panel.api.views import (
 from admin_panel.api.views import (
     CategoryViewSet,
     HighlightsViewSet,
+    UserViewSet,
+    AuthAPIView,
+    RegisterAPIView,
+    UserDetailAPIView,
 )
 
 from buyers_panel.api.views import (
@@ -63,6 +65,7 @@ router2 = routers.DefaultRouter()
 router2.register(r'products(/?P<category>[a-zA-Z]+)', FoodViewSet)
 
 urlpatterns = [
+    path('docs/', include_docs_urls(title='Grocery API')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     path('admin/', admin.site.urls),
@@ -72,6 +75,8 @@ urlpatterns = [
 
     path('api/', include(router.urls)),
     path('api/v1/', include(router2.urls)),
+
+    path(r'', TemplateView.as_view(template_name='index.html'), name='index'),
 ]
 
 search_product_list = FoodViewSet.as_view({
@@ -92,6 +97,9 @@ urlpatterns += format_suffix_patterns([
     path('api/v1/products/recommended/', recommended_product_list, name='recommended_products'),
     path('api/v1/products/drinks/', drinks_list, name='drinks'),
     path('api/v1/products/', search_product_list, name='search_product'),
+    path('api/v1/signin/', AuthAPIView.as_view(), name='login'),
+    path('api/v1/signup/', RegisterAPIView.as_view(), name='register'),
+    path('api/v1/user/<int:id>/', UserDetailAPIView.as_view(), name='user_detail'),
 ])
 
 if settings.DEBUG:
