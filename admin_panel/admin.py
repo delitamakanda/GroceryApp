@@ -30,17 +30,17 @@ class CustomUserAdmin(UserAdmin):
     list_display = ('email', 'is_staff', 'is_active',)
     list_filter = ('is_staff', 'is_active', 'user_type',)
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
+        (None, {'fields': ('email', 'password', 'first_name', 'last_name', 'phone_number')}),
         ('Permissions', {'fields': ('is_staff', 'is_active', 'user_type')}),
     )
 
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'is_staff', 'is_active', 'user_type')},
+            'fields': ('email', 'first_name', 'last_name', 'phone_number', 'password1', 'password2', 'is_staff', 'is_active', 'user_type')},
          ),
     )
-    search_fields = ('email',)
+    search_fields = ('email', 'phone_number', 'last_name', 'first_name')
     ordering = ('email',)
     inlines = (GrocerInline, BuyerInline, DelivererInline,)
 

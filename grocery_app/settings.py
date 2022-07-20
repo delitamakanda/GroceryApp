@@ -44,7 +44,6 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'django_filters',
-    'djstripe',
     'corsheaders',
     'taggit',
     'storages',

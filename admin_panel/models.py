@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser, AbstractBaseUser, Permissio
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.core.validators import RegexValidator
 
 from .managers import CustomUserManager
 
@@ -17,8 +18,17 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         (DELIVERER, 'deliverer'),
         (ADMIN, 'admin'),
     )
-    # username = None
+    phone_message = 'Phone number must be entered in the format: 05999999999' 
+
+     # your desired format 
+    phone_regex = RegexValidator(
+        regex=r'^(\d{2})\d{8}$',
+        message=phone_message
+    )
+    last_name = models.CharField(max_length=150, blank=True, null=True)
+    first_name = models.CharField(max_length=150)
     email = models.EmailField(_('Email'), unique=True)
+    phone_number = models.CharField(max_length=60, unique=True, validators=[phone_regex])
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
@@ -32,11 +42,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email + ' ' + self.get_user_type_display()
-
-
-class StripeSubscription(models.Model):
-    start_date = models.DateTimeField()
-    status = models.CharField(max_length=20)
 
 
 class Category(models.Model):

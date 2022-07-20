@@ -3,7 +3,7 @@ from multiselectfield import MultiSelectField
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-from admin_panel.models import CustomUser, StripeSubscription
+from admin_panel.models import CustomUser
 
 CATEGORY_CHOICES = (
     ('TR', 'Trier'),
@@ -23,8 +23,6 @@ LABEL_CHOICES = (
 
 class Grocer(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    stripe_subscription = models.ForeignKey(
-        StripeSubscription, on_delete=models.SET_NULL, null=True)
 
 
 class Meal(models.Model):
