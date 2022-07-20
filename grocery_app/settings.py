@@ -219,6 +219,12 @@ JWT_AUTH = {
 
 # CORS
 
+from corsheaders.defaults import default_headers
+
+CORS_ALLOW_HEADERS = default_headers + (
+    'X-XSRF-TOKEN',
+)
+
 # CORS_ALLOWED_ORIGINS = [
 #     'http://localhost:8080',
 #     'http://localhost:3000',

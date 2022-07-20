@@ -13,8 +13,6 @@ jwt_payload_handler             = settings.api_settings.JWT_PAYLOAD_HANDLER
 jwt_encode_handler              = settings.api_settings.JWT_ENCODE_HANDLER
 jwt_response_payload_handler    = settings.api_settings.JWT_RESPONSE_PAYLOAD_HANDLER
 
-User = get_user_model()
-
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
@@ -35,12 +33,12 @@ class AuthAPIView(views.APIView):
     permission_classes = (AnonPermissionOnly,)
 
     def post(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             return Response({'detail': 'You are already authenticated'}, status=400)
         data = request.data
         phone_number = data.get('phone_number')
         password = data.get('password')
-        qs = User.objects.filter(
+        qs = CustomUser.objects.filter(
                 Q(phone_number__iexact=phone_number)|
                 Q(email__iexact=phone_number)
             ).distinct()
@@ -48,15 +46,16 @@ class AuthAPIView(views.APIView):
             user_obj = qs.first()
             if user_obj.check_password(password):
                 user = user_obj
+                print(user)
                 payload = jwt_payload_handler(user)
                 token = jwt_encode_handler(payload)
-                response = jwt_response_payload_handler(token, request=request)
+                response = jwt_response_payload_handler(token=token, user=user, request=request)
                 return Response(response)
         return Response({"detail": "Invalid credentials"}, status=401)
 
 
 class RegisterAPIView(generics.CreateAPIView):
-    queryset = User.objects.all()
+    queryset = CustomUser.objects.all()
     serializer_class = UserRegisterSerializer
     permission_classes = [AnonPermissionOnly]
 
@@ -65,7 +64,7 @@ class RegisterAPIView(generics.CreateAPIView):
 
 
 class UserDetailAPIView(generics.RetrieveAPIView):
-    queryset = User.objects.filter(is_active=True)
+    queryset = CustomUser.objects.filter(is_active=True)
     serializer_class = UserSerializer
     lookup_field = 'id'
 
