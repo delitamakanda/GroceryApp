@@ -34,7 +34,7 @@ class AuthAPIView(views.APIView):
 
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return Response({'detail': 'You are already authenticated'}, status=400)
+            return Response({'errors': 'You are already authenticated'}, status=400)
         data = request.data
         phone_number = data.get('phone_number')
         password = data.get('password')
@@ -51,7 +51,7 @@ class AuthAPIView(views.APIView):
                 token = jwt_encode_handler(payload)
                 response = jwt_response_payload_handler(token=token, user=user, request=request)
                 return Response(response)
-        return Response({"detail": "Invalid credentials"}, status=401)
+        return Response({"errors": "Invalid credentials"}, status=401)
 
 
 class RegisterAPIView(generics.CreateAPIView):
