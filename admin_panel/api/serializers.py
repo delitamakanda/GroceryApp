@@ -25,7 +25,7 @@ class HighlightsSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['id', 'url', 'email', 'phone_number', 'last_name', 'first_name', 'is_staff', 'user_type']
+        fields = ['id', 'url', 'email', 'phone_number', 'last_name', 'first_name', 'is_staff', 'user_type', 'is_phone_veryfied', 'date_joined']
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
@@ -45,6 +45,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             'password2',
             'token',
             'expires',
+            'is_phone_veryfied',
             'message',
         ]
 
