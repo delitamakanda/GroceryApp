@@ -83,7 +83,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):  
-        user_obj = CustomUser(phone_number=validated_data.get('phone_number'), email=validated_data.get('email'))
+        user_obj = CustomUser(phone_number=validated_data.get('phone_number'), email=validated_data.get('email'), first_name=validated_data.get('first_name'))
         user_obj.set_password(validated_data.get('password'))
         user_obj.save()
         return user_obj
