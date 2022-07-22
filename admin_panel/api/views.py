@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, request
 from admin_panel.models import Category, Highlights, CustomUser
 from admin_panel.api.serializers import CategorySerializer, HighlightsSerializer, UserSerializer, UserRegisterSerializer
 from admin_panel.api.permissions import AnonPermissionOnly
@@ -63,10 +63,9 @@ class RegisterAPIView(generics.CreateAPIView):
         return {"request": self.request}
 
 
-class UserDetailAPIView(generics.RetrieveAPIView):
-    queryset = CustomUser.objects.filter(is_active=True)
-    serializer_class = UserSerializer
-    lookup_field = 'id'
+class UserDetailAPIView(views.APIView):
+    permission_classes = []
 
-    def get_serializer_context(self):
-        return {'request': self.request}
+    def get(self, request, *args, **kwargs):
+        serializer = UserSerializer(request.user, context={'request': request})
+        return Response(serializer.data, status=200)

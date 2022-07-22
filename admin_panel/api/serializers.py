@@ -4,6 +4,8 @@ from rest_framework import serializers
 from admin_panel.models import Category, Highlights, CustomUser
 from rest_framework_jwt.settings import api_settings
 from rest_framework.reverse import reverse as api_reverse
+from buyers_panel.api.serializers import BillingAddressSerializer, OrderSerializer
+from buyers_panel.models import Order, BillingAddress
 
 jwt_payload_handler             = api_settings.JWT_PAYLOAD_HANDLER
 jwt_encode_handler              = api_settings.JWT_ENCODE_HANDLER
@@ -23,9 +25,24 @@ class HighlightsSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
+    address = serializers.SerializerMethodField(read_only=True)
+    order_count = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = CustomUser
-        fields = ['id', 'url', 'email', 'phone_number', 'last_name', 'first_name', 'is_staff', 'user_type', 'is_phone_veryfied', 'date_joined']
+        fields = ['id', 'url', 'email', 'phone_number', 'last_name', 'first_name', 'is_staff', 'user_type', 'is_phone_veryfied', 'date_joined', 'mail_is_verified', 'order_count', 'address',]
+
+    def get_address(self, obj):
+        street_address = ''
+        address = BillingAddress.objects.filter(user=obj, address_type='S').first()
+        if address:
+            street_address = address.street_address + ', ' + address.city + ', ' + address.country.name
+        return street_address
+
+    def get_order_count(self, obj):
+        orders = Order.objects.filter(user=obj)
+        return orders.count()
+
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
@@ -45,7 +62,6 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             'password2',
             'token',
             'expires',
-            'is_phone_veryfied',
             'message',
         ]
 

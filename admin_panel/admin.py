@@ -50,6 +50,7 @@ class CustomUserAdmin(UserAdmin):
             return []
         unfiltered = super(CustomUserAdmin, self).get_inline_instances(request, obj)
         # filter out the Inlines you don't want
+        print(unfiltered)
         if obj.user_type == 'grocer':
             return [x for x in unfiltered if isinstance(x,GrocerInline)]
         elif obj.user_type == 'deliverer':

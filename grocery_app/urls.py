@@ -99,7 +99,7 @@ urlpatterns += format_suffix_patterns([
     path('api/v1/products/', search_product_list, name='search_product'),
     path('api/v1/signin/', AuthAPIView.as_view(), name='login'),
     path('api/v1/signup/', RegisterAPIView.as_view(), name='register'),
-    path('api/v1/user/<int:id>/', UserDetailAPIView.as_view(), name='user_detail'),
+    path('api/v1/customer-info/', UserDetailAPIView.as_view(), name='user_detail'),
 ])
 
 if settings.DEBUG:
