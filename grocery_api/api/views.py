@@ -12,7 +12,7 @@ class FoodViewSet(viewsets.ModelViewSet):
     queryset = Food.objects.all()
     serializer_class = FoodSerializer
     pagination_class = LargeResultsSetPagination
-    # permission_classes = [permissions.AllowAny,] #todo: remove
+    permission_classes = [permissions.AllowAny,] #todo: remove
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = (
         'price',
@@ -32,7 +32,7 @@ class PopularFoodViewSet(viewsets.ModelViewSet):
     queryset = Food.objects.filter(category=value_map['popular'])[:10]  
     serializer_class = FoodSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    # permission_classes = [permissions.AllowAny,] #todo: remove
+    permission_classes = [permissions.AllowAny,] #todo: remove
     ordering_fields = (
         'price',
     )
@@ -44,7 +44,7 @@ class PopularFoodViewSet(viewsets.ModelViewSet):
 class RecommendedFoodViewSet(viewsets.ModelViewSet):
     queryset = Food.objects.filter(category=value_map['recommended'])[:10]
     serializer_class = FoodSerializer
-    # permission_classes = [permissions.AllowAny,] #todo: remove
+    permission_classes = [permissions.AllowAny,] #todo: remove
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = (
         'price',
@@ -56,7 +56,7 @@ class RecommendedFoodViewSet(viewsets.ModelViewSet):
 class DrinksViewSet(viewsets.ModelViewSet):
     queryset = Food.objects.filter(category=value_map['drinks'])[:10]
     serializer_class = FoodSerializer
-    # permission_classes = [permissions.AllowAny,] #todo: remove
+    permission_classes = [permissions.AllowAny,] #todo: remove
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     ordering_fields = (
         'price',
