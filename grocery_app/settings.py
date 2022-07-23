@@ -178,6 +178,7 @@ REST_FRAMEWORK = {
     'SEARCH_PARAM': 'q',
     'ORDERING_PARAM': 'ordering',
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    'COERCE_DECIMAL_TO_STRING': False,
 }
 
 # JWT
