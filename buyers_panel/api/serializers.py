@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from buyers_panel.models import BillingAddress, Order, OrderItem
+from grocery_api.api.serializers import FoodSerializer
 
 
 class BillingAddressSerializer(serializers.ModelSerializer):
@@ -10,12 +11,16 @@ class BillingAddressSerializer(serializers.ModelSerializer):
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
+    item = FoodSerializer(read_only=True)
+
     class Meta:
         model = OrderItem
-        fields = '__all__'
+        exclude = ('user',)
 
 
 class OrderSerializer(serializers.ModelSerializer):
+    items = OrderItemSerializer(many=True)
+
     class Meta:
         model = Order
-        fields = '__all__'
+        exclude = ('user',)

@@ -3,6 +3,8 @@ from django.utils import timezone
 from django_countries.fields import CountryField
 from admin_panel.models import CustomUser
 from grocery_api.models import Food
+from django.core.validators import RegexValidator
+from common.validators import phone_regex
 
 ADDRESS_CHOICES = (
     ('B', 'Billing'),
@@ -19,8 +21,11 @@ class BillingAddress(models.Model):
     zip = models.CharField(max_length=100)
     address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
     default = models.BooleanField(default=False)
+    contact_person_name = models.CharField(max_length=60, null=True, blank=True)
+    contact_person_phone = models.CharField(max_length=60, validators=[phone_regex], null=True, blank=True)
 
     class Meta:
+        ordering = ['-id']
         verbose_name_plural = 'Billing Addresses'
         verbose_name = 'Billing Address'
 
@@ -35,7 +40,7 @@ class OrderItem(models.Model):
     quantity = models.IntegerField(default=1)
 
     def __str__(self):
-        return f"{self.quantity} of {self.item.title}"
+        return f"{self.quantity} of {self.item.name}"
 
     def get_total_item_price(self):
         return self.quantity * self.item.price
@@ -67,6 +72,9 @@ class Order(models.Model):
     received = models.BooleanField(default=False)
     refund_requested = models.BooleanField(default=False)
     refund_granted = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-id']
 
     def __str__(self):
         return self.user.first_name + ' ' + self.user.email

@@ -52,8 +52,6 @@ from grocery_api.api.views import (
 )
 
 router = routers.DefaultRouter()
-router.register(r'billing-addresses', BillingAddressViewSet)
-router.register(r'orders', OrderViewSet)
 router.register(r'ratings', RatingViewSet)
 router.register(r'categories', CategoryViewSet)
 router.register(r'highlights', HighlightsViewSet)
@@ -63,6 +61,8 @@ router.register(r'users', UserViewSet)
 
 router2 = routers.DefaultRouter()
 router2.register(r'products(/?P<category>[a-zA-Z]+)', FoodViewSet)
+router2.register(r'addresses', BillingAddressViewSet)
+router2.register(r'orders', OrderViewSet)
 
 urlpatterns = [
     path('docs/', include_docs_urls(title='Grocery API')),

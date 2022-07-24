@@ -13,6 +13,6 @@ def jwt_response_payload_handler(token, user=None, request=None):
     return {
         'token': token,
         'user': UserSerializer(user, context={'request': request}).data,
-        'expires': timezone.now() + expire_delta - datetime.timedelta(seconds=200),
+        'exp': timezone.now() + expire_delta - datetime.timedelta(seconds=200),
         'created_at': timezone.now(),
     }
