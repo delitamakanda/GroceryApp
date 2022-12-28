@@ -66,7 +66,7 @@ class RegisterAPIView(generics.CreateAPIView):
 
 
 class UserDetailAPIView(views.APIView):
-    permission_classes = [IsOwnerOrReadOnly, permissions.IsAuthenticated,]
+    permission_classes = [permissions.IsAuthenticated,]
 
     def get_object(self, pk):
         try:
