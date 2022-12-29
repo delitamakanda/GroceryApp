@@ -54,3 +54,13 @@ def geocode(request):
     response = requests.get('https://maps.googleapis.com/maps/api/geocode/json?latlng={},{}&key={}'.format(lat, lng, api_key))
 
     return Response(response.json(), status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def get_zone(request):
+    lat = request.query_params.get('lat', None)
+    lng = request.query_params.get('lng', None)
+    api_key = settings.GOOGLE_MAPS_API_KEY
+    # todo: get zone from lat and lng
+    response = requests.get('https://maps.googleapis.com/maps/api/geocode/json?latlng={},{}&key={}'.format(lat, lng, api_key))
+
+    return Response(response.json(), status=status.HTTP_200_OK)
