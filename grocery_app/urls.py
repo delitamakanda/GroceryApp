@@ -42,6 +42,7 @@ from admin_panel.api.views import (
 from buyers_panel.api.views import (
     BillingAddressViewSet,
     OrderViewSet,
+    geocode,
 )
 
 from grocery_api.api.views import (
@@ -100,6 +101,7 @@ urlpatterns += format_suffix_patterns([
     path('api/v1/signin/', AuthAPIView.as_view(), name='login'),
     path('api/v1/signup/', RegisterAPIView.as_view(), name='register'),
     path('api/v1/customer-info/', UserDetailAPIView.as_view(), name='user_detail'),
+    path('api/v1/geocode/', geocode, name='geocode'),
 ])
 
 if settings.DEBUG:

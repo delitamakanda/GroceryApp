@@ -237,3 +237,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 # email
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Google Maps settings
+GOOGLE_MAPS_API_KEY = config('GOOGLE_MAPS_API_KEY')
+

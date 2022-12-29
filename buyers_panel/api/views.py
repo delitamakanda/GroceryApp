@@ -1,10 +1,13 @@
+import requests
 from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 from buyers_panel.api.serializers import OrderSerializer, BillingAddressSerializer, OrderItemSerializer
 from buyers_panel.models import Order, BillingAddress
 from grocery_api.models import Food
 from common.permissions import IsOwnerOrReadOnly
+from django.conf import settings
 
 
 class OrderViewSet(viewsets.ModelViewSet):
@@ -41,3 +44,13 @@ class BillingAddressViewSet(viewsets.ModelViewSet):
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def geocode(request):
+    lat = request.query_params.get('lat', None)
+    lng = request.query_params.get('lng', None)
+    api_key = settings.GOOGLE_MAPS_API_KEY
+
+    response = requests.get('https://maps.googleapis.com/maps/api/geocode/json?latlng={},{}&key={}'.format(lat, lng, api_key))
+
+    return Response(response.json(), status=status.HTTP_200_OK)

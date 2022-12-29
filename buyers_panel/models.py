@@ -9,17 +9,21 @@ from common.validators import phone_regex
 ADDRESS_CHOICES = (
     ('B', 'Billing'),
     ('S', 'Shipping'),
+    ('H', 'Home'),
+    ('O', 'Office'),
+    ('M', 'Other'),
 )
 
 
 class BillingAddress(models.Model):
     user = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, blank=True, null=True)
-    street_address = models.CharField(max_length=150)
+    street_address = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
     country = CountryField(multiple=False)
-    zip = models.CharField(max_length=100)
-    address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES)
+    latitude = models.CharField(blank=True, null=True, max_length=10)
+    longitude = models.CharField(blank=True, null=True, max_length=10)
+    address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES, default='H')
     default = models.BooleanField(default=False)
     contact_person_name = models.CharField(max_length=60, null=True, blank=True)
     contact_person_phone = models.CharField(max_length=60, validators=[phone_regex], null=True, blank=True)
