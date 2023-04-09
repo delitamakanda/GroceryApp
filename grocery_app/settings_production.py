@@ -20,8 +20,8 @@ STATIC_ROOT = 'static'
 
 DATABASES['default'] = dj_database_url.config()
 
-CELERY_BROKER_URL = config("CELERY_BROKER")
-CELERY_RESULT_BACKEND = config("CELERY_BROKER")
+CELERY_BROKER_URL = config("REDIS_URL")
+CELERY_RESULT_BACKEND = config("REDIS_URL")
 
 # admin
 SERVER_EMAIL = config('ADMIN_EMAIL')
