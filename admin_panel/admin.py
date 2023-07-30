@@ -57,7 +57,19 @@ class CustomUserAdmin(UserAdmin):
         else :
             return [x for x in unfiltered if isinstance(x,BuyerInline)]
 
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('title', 'slug', 'id', 'is_active',)
+    list_filter = ('is_active',)
+    search_fields = ('title',)
+    prepopulated_fields = {'slug': ('title',)}
+    ordering = ('title',)
+
+class HighlightsAdmin(admin.ModelAdmin):
+    list_display = ('title', 'img', 'id', 'is_active',)
+    list_filter = ('is_active',)
+    search_fields = ('title',)
+    prepopulated_fields = {'slug': ('title',)}
 
 admin.site.register(CustomUser, CustomUserAdmin)
-admin.site.register(Category)
+admin.site.register(Category, CategoryAdmin)
 admin.site.register(Highlights)

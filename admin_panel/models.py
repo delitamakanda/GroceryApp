@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import RegexValidator
+from django.utils.text import slugify
 
 from .managers import CustomUserManager
 
@@ -48,10 +49,22 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 class Category(models.Model):
     title = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=200, unique=True)
+    is_active = models.BooleanField(default=True)
     img = models.ImageField(upload_to='category', blank=True)
+
+    class Meta:
+        ordering = ['title']
+        verbose_name_plural = 'Categories'
+        verbose_name = 'Category'
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(Category, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ['title']
@@ -61,7 +74,14 @@ class Category(models.Model):
 
 class Highlights(models.Model):
     title = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=200, unique=True)
     img = models.ImageField(upload_to='highlights', blank=True)
+    is_active = models.BooleanField(default=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(Highlights, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title

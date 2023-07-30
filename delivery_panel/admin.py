@@ -1,3 +1,5 @@
 from django.contrib import admin
+from delivery_panel.models import Deliverer
 
-# Register your models here.
+admin.site.register(Deliverer)
+

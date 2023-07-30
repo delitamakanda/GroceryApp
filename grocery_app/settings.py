@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'storages',
     'django_countries',
     'multiselectfield',
+    'djangoql',
 
     'grocery_api.apps.GroceryApiConfig',
     'admin_panel.apps.AdminPanelConfig',

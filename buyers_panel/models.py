@@ -61,6 +61,14 @@ class OrderItem(models.Model):
         return self.get_total_item_price()
 
 
+ORDER_STATUSES = (
+    ('P', 'Pending'),
+    ('O', 'Ordered'),
+    ('D', 'Being Delivered'),
+    ('R', 'Received'),
+    ('F', 'Refund Requested'),
+)
+
 class Order(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     ref_code = models.CharField(max_length=120)
@@ -73,12 +81,16 @@ class Order(models.Model):
     ordered_date = models.DateTimeField(editable=False)
     ordered = models.BooleanField(default=False)
     being_delivered = models.BooleanField(default=False)
+    completed_at = models.DateTimeField(null=True, blank=True)
     received = models.BooleanField(default=False)
     refund_requested = models.BooleanField(default=False)
     refund_granted = models.BooleanField(default=False)
+    status = models.CharField(max_length=1, choices=ORDER_STATUSES, default='P')
 
     class Meta:
-        ordering = ['-id']
+        ordering = ['-id', '-ordered_date']
+        verbose_name_plural = 'Orders'
+        verbose_name = 'Order'
 
     def __str__(self):
         return self.user.first_name + ' ' + self.user.email
@@ -88,6 +100,10 @@ class Order(models.Model):
         if not self.id:
             self.ordered_date = timezone.now()
         self.start_date = timezone.now()
+        if self.completed_at:
+            self.status = 'R'
+        if self.status == 'R' and not self.completed_at:
+            self.completed_at = timezone.now()
         return super(Order, self).save(*args, **kwargs)
 
     def get_total(self):

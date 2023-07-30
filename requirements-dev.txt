@@ -45,3 +45,4 @@ django-countries==7.2.1
 django-multiselectfield==0.1.12
 django-taggit-serializer==0.1.7
 coreapi==2.3.3
+djangoql==0.17.1
