@@ -1,8 +1,9 @@
 from django.contrib import admin
 from grocers_panel.models import Shop, FoodMeal, Meal, Rating, Grocer
 from djangoql.admin import DjangoQLSearchMixin
+from import_export.admin import ImportExportMixin
 
-class MealAdmin(DjangoQLSearchMixin, admin.ModelAdmin):
+class MealAdmin(DjangoQLSearchMixin, ImportExportMixin, admin.ModelAdmin):
     model = Meal
     list_display = ['name', 'price']
     search_fields = ('name', 'id',)

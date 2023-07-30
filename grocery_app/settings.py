@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django_countries',
     'multiselectfield',
     'djangoql',
+    'import_export',
 
     'grocery_api.apps.GroceryApiConfig',
     'admin_panel.apps.AdminPanelConfig',
