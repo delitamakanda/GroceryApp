@@ -17,7 +17,8 @@ from django.conf.urls import include
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
-from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
+from rest_framework_simplejwt.views import (TokenObtainPairView,
+    TokenRefreshView, TokenVerifyView)
 from rest_framework import routers
 from django.conf.urls.static import static
 from django.conf import settings
@@ -71,9 +72,9 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     path('admin/', admin.site.urls),
-    path('api-token-auth/', obtain_jwt_token),
-    path('api-token-refresh/', refresh_jwt_token),
-    path('api-token-verify/', verify_jwt_token),
+    path('api-token-auth/', TokenObtainPairView.as_view()),
+    path('api-token-refresh/', TokenRefreshView.as_view()),
+    path('api-token-verify/', TokenVerifyView.as_view()),
 
     path('api/', include(router.urls)),
     path('api/v1/', include(router2.urls)),
