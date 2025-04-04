@@ -25,29 +25,28 @@ from django.conf import settings
 from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework.documentation import include_docs_urls
 
-from grocers_panel.api.views import (
+from apps.grocers_panel.api.views import (
     ShopViewSet,
     RatingViewSet,
     OfferViewSet,
 )
 
-from admin_panel.api.views import (
+from apps.admin_panel.api.views import (
     CategoryViewSet,
-    HighlightsViewSet,
     UserViewSet,
     AuthAPIView,
     RegisterAPIView,
     UserDetailAPIView,
 )
 
-from buyers_panel.api.views import (
+from apps.buyers_panel.api.views import (
     BillingAddressViewSet,
     OrderViewSet,
     geocode,
     get_zone,
 )
 
-from grocery_api.api.views import (
+from apps.grocery_api.api.views import (
     FoodViewSet,
     PopularFoodViewSet,
     RecommendedFoodViewSet,
@@ -57,7 +56,6 @@ from grocery_api.api.views import (
 router = routers.DefaultRouter()
 router.register(r'ratings', RatingViewSet)
 router.register(r'categories', CategoryViewSet)
-router.register(r'highlights', HighlightsViewSet)
 router.register(r'offers', OfferViewSet)
 router.register(r'shops', ShopViewSet)
 router.register(r'users', UserViewSet)

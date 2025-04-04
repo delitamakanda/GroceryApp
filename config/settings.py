@@ -53,11 +53,10 @@ INSTALLED_APPS = [
     'djangoql',
     'import_export',
 
-    'grocery_api.apps.GroceryApiConfig',
-    'admin_panel.apps.AdminPanelConfig',
-    'buyers_panel.apps.BuyersPanelConfig',
-    'delivery_panel.apps.DeliveryPanelConfig',
-    'grocers_panel.apps.GrocersPanelConfig',
+    'apps.grocery_api.apps.GroceryApiConfig',
+    'apps.admin_panel.apps.AdminPanelConfig',
+    'apps.buyers_panel.apps.BuyersPanelConfig',
+    'apps.grocers_panel.apps.GrocersPanelConfig',
 
 ]
 
@@ -175,7 +174,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
-    'DEFAULT_PAGINATION_CLASS': 'grocery_api.pagination.StandardResultsSetPagination',
+    'DEFAULT_PAGINATION_CLASS': 'apps.grocery_api.pagination.StandardResultsSetPagination',
     'PAGE_SIZE': 99,
     'SEARCH_PARAM': 'q',
     'ORDERING_PARAM': 'ordering',
@@ -228,13 +227,7 @@ CORS_ALLOW_HEADERS = default_headers + (
     'X-XSRF-TOKEN',
 )
 
-# CORS_ALLOWED_ORIGINS = [
-#     'http://localhost:8080',
-#     'http://localhost:3000',
-#     'http://localhost:4200',
-# ]
-
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = []
 
 # email
 

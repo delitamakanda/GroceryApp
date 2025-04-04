@@ -2,7 +2,7 @@ from collections import namedtuple
 from rest_framework import permissions
 from django.core.validators import RegexValidator
 
-ORDER_STATUSES = namedtuple('ORDER_STATUSES', ['PENDING', 'ACCEPTED', 'REJECTED', 'CANCELLED'])._make(range(5))
+ORDER_STATUSES = namedtuple('ORDER_STATUSES', ['PENDING', 'ACCEPTED', 'REJECTED', 'CANCELLED'])._make(range(4))
 
 ORDER_STATUSES = (
     (ORDER_STATUSES.PENDING, 'PENDING'),
