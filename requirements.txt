@@ -9,7 +9,7 @@ click-didyoumean==0.0.3
 click-plugins==1.1.1
 click-repl==0.2.0
 Django==3.2.3
-flower==0.9.7
+flower==2.0.1
 humanize==3.5.0
 iniconfig==1.1.1
 kombu==5.5.2
