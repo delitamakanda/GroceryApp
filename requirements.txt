@@ -4,7 +4,7 @@ attrs==21.2.0
 autopep8==1.5.7
 billiard==3.6.4.0
 celery==5.2.2
-click==7.1.2
+click==8.1.8
 click-didyoumean==0.0.3
 click-plugins==1.1.1
 click-repl==0.1.6
