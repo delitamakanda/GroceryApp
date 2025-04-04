@@ -2,16 +2,13 @@ from rest_framework import viewsets, request, status, generics, permissions, vie
 from admin_panel.models import Category, Highlights, CustomUser
 from admin_panel.api.serializers import CategorySerializer, HighlightsSerializer, UserSerializer, UserRegisterSerializer
 from admin_panel.api.permissions import AnonPermissionOnly
-from django.contrib.auth import authenticate, get_user_model
 from django.http import Http404
 from django.db.models import Q
 from rest_framework.response import Response
-from rest_framework_jwt import settings
-from common.permissions import IsOwnerOrReadOnly
+from rest_framework_simplejwt.tokens import RefreshToken
 
-jwt_payload_handler             = settings.api_settings.JWT_PAYLOAD_HANDLER
-jwt_encode_handler              = settings.api_settings.JWT_ENCODE_HANDLER
-jwt_response_payload_handler    = settings.api_settings.JWT_RESPONSE_PAYLOAD_HANDLER
+from admin_panel.utils import jwt_response_payload_handler
+
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
@@ -48,8 +45,9 @@ class AuthAPIView(views.APIView):
             if user_obj.check_password(password):
                 user = user_obj
                 print(user)
-                payload = jwt_payload_handler(user)
-                token = jwt_encode_handler(payload)
+                
+                payload = RefreshToken.for_user(user)
+                token = str(payload.access_token)
                 response = jwt_response_payload_handler(token=token, user=user, request=request)
                 return Response(response)
         return Response({"errors": "Invalid credentials"}, status=401)

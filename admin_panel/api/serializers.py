@@ -2,14 +2,8 @@ import datetime
 from django.utils import timezone
 from rest_framework import serializers
 from admin_panel.models import Category, Highlights, CustomUser
-from rest_framework_jwt.settings import api_settings
-from rest_framework.reverse import reverse as api_reverse
-from buyers_panel.api.serializers import BillingAddressSerializer, OrderSerializer
 from buyers_panel.models import Order, BillingAddress
-
-jwt_payload_handler             = api_settings.JWT_PAYLOAD_HANDLER
-jwt_encode_handler              = api_settings.JWT_ENCODE_HANDLER
-expire_delta                    = api_settings.JWT_REFRESH_EXPIRATION_DELTA
+from rest_framework_simplejwt.tokens import RefreshToken
 
 class CategorySerializer(serializers.ModelSerializer):
 
@@ -32,14 +26,16 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         model = CustomUser
         fields = ['id', 'url', 'email', 'phone_number', 'last_name', 'first_name', 'is_staff', 'user_type', 'is_phone_veryfied', 'date_joined', 'mail_is_verified', 'order_count', 'address',]
 
-    def get_address(self, obj):
+    @staticmethod
+    def get_address(obj):
         street_address = ''
         address = BillingAddress.objects.filter(user=obj, address_type='S').first()
         if address:
             street_address = address.street_address + ', ' + address.city + ', ' + address.country.name
         return street_address
 
-    def get_order_count(self, obj):
+    @staticmethod
+    def get_order_count(obj):
         orders = Order.objects.filter(user=obj)
         return orders.count()
 
@@ -71,7 +67,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         return "Thank you for registering."
 
     def get_expires(self, obj):
-        return timezone.now() + expire_delta - datetime.timedelta(seconds=200)
+        return datetime.timedelta(days=7)
 
     def validate_email(self, value):
         qs = CustomUser.objects.filter(email__iexact=value)
@@ -87,8 +83,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     def get_token(self, obj):
         user = obj
-        payload = jwt_payload_handler(user)
-        token = jwt_encode_handler(payload)
+        payload = RefreshToken.for_user(user)
+        token = str(payload.access_token)
         return token
 
     def validate(self, data):
