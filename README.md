@@ -18,9 +18,9 @@ python manage.py makemigrations --dry-run --verbosity 3 # test new models
 python manage.py makemigrations
 python manage.py migrate
 
-celery worker --app=grocery_app --loglevel=info
+celery worker --app=config --loglevel=info
 
-flower -A grocery_app --port=5555 --broker=redis://localhost:6379/0
+flower -A config --port=5555 --broker=redis://localhost:6379/0
 ```
 
 ```python

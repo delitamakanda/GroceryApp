@@ -1,9 +1,7 @@
-from grocery_app.settings import *
-import django_heroku
+from config.settings import *
 import dj_database_url
 
 
-django_heroku.settings(locals())
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 DEBUG = config('DEBUG', cast=bool, default=False)
