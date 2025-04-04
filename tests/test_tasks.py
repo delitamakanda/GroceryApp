@@ -1,5 +1,5 @@
 from celery.app import task
-from admin_panel import tasks
+from apps.admin_panel import tasks
 from unittest.mock import patch, call
 
 
