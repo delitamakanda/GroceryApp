@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django_countries.fields import CountryField
 from apps.admin_panel.models import CustomUser
-from apps.grocery_api.models import Food
+from apps.food_panel.models import Food
 from core.utils import phone_regex
 from core.models import BaseModel
 

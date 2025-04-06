@@ -3,6 +3,9 @@ class BaseService:
     
     def __init__(self):
         self.repository = self.repository_class()
+        
+    def get_queryset(self):
+        return self.repository.get_queryset()
     
     def get_by_id(self, id):
         return self.repository.get_by_id(id)

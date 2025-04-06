@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class GroceryApiConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'apps.grocery_api'
+    name = 'apps.food_panel'

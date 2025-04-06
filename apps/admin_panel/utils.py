@@ -1,5 +1,5 @@
 import datetime
-from apps.admin_panel.api.serializers import UserSerializer
+from apps.admin_panel.serializers import UserSerializer
 from django.utils import timezone
 
 

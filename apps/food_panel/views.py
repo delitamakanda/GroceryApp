@@ -1,7 +1,7 @@
 from rest_framework import viewsets, response, permissions
-from apps.grocery_api.models import Food
+from apps.food_panel.models import Food
 from .serializers import FoodSerializer
-from apps.grocery_api.pagination import LargeResultsSetPagination, StandardResultsSetPagination
+from apps.food_panel.pagination import LargeResultsSetPagination, StandardResultsSetPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 

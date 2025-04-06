@@ -25,13 +25,15 @@ from django.conf import settings
 from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework.documentation import include_docs_urls
 
-from apps.grocers_panel.api.views import (
+from apps.grocers_panel.views import (
     ShopViewSet,
     RatingViewSet,
     OfferViewSet,
+    GrocerViewSet,
+MealViewSet,
 )
 
-from apps.admin_panel.api.views import (
+from apps.admin_panel.views import (
     CategoryViewSet,
     UserViewSet,
     AuthAPIView,
@@ -39,14 +41,14 @@ from apps.admin_panel.api.views import (
     UserDetailAPIView,
 )
 
-from apps.buyers_panel.api.views import (
+from apps.buyers_panel.views import (
     BillingAddressViewSet,
     OrderViewSet,
     geocode,
     get_zone,
 )
 
-from apps.grocery_api.api.views import (
+from apps.food_panel.views import (
     FoodViewSet,
     PopularFoodViewSet,
     RecommendedFoodViewSet,
@@ -59,6 +61,8 @@ router.register(r'categories', CategoryViewSet)
 router.register(r'offers', OfferViewSet)
 router.register(r'shops', ShopViewSet)
 router.register(r'users', UserViewSet)
+router.register(r'grocers', GrocerViewSet)
+router.register(r'meals', MealViewSet)
 
 router2 = routers.DefaultRouter()
 router2.register(r'products(/?P<category>[a-zA-Z]+)', FoodViewSet)
@@ -74,7 +78,7 @@ urlpatterns = [
     path('api-token-refresh/', TokenRefreshView.as_view()),
     path('api-token-verify/', TokenVerifyView.as_view()),
 
-    path('api/', include(router.urls)),
+    path('api/v1/', include(router.urls)),
     path('api/v1/', include(router2.urls)),
 
     path(r'', TemplateView.as_view(template_name='index.html'), name='index'),

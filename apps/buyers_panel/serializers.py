@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from apps.buyers_panel.models import BillingAddress, Order, OrderItem
-from apps.grocery_api.api.serializers import FoodSerializer
+from apps.food_panel.serializers import FoodSerializer
 
 
 class BillingAddressSerializer(serializers.ModelSerializer):

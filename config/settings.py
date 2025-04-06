@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'djangoql',
     'import_export',
 
-    'apps.grocery_api.apps.GroceryApiConfig',
+    'apps.food_panel.apps.GroceryApiConfig',
     'apps.admin_panel.apps.AdminPanelConfig',
     'apps.buyers_panel.apps.BuyersPanelConfig',
     'apps.grocers_panel.apps.GrocersPanelConfig',
@@ -166,7 +166,7 @@ CELERY_RESULT_BACKEND = config("CELERY_BROKER")
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -174,7 +174,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
-    'DEFAULT_PAGINATION_CLASS': 'apps.grocery_api.pagination.StandardResultsSetPagination',
+    'DEFAULT_PAGINATION_CLASS': 'apps.food_panel.pagination.StandardResultsSetPagination',
     'PAGE_SIZE': 99,
     'SEARCH_PARAM': 'q',
     'ORDERING_PARAM': 'ordering',

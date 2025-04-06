@@ -2,7 +2,7 @@ from django.db.models import Avg, Count
 from rest_framework import serializers
 from taggit.models import Tag
 from taggit.serializers import (TagListSerializerField, TaggitSerializer)
-from apps.admin_panel.api.serializers import UserSerializer
+from apps.admin_panel.serializers import UserSerializer
 from apps.grocers_panel.models import Meal, Grocer, FoodMeal, Shop, Rating
 
 
@@ -13,9 +13,11 @@ class RatingSerializer(serializers.ModelSerializer):
 
 
 class GrocerSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
     class Meta:
         model = Grocer
-        fields = ['user', 'stripe_subscription']
+        fields = ['user',]
 
 
 class MealSerializer(serializers.ModelSerializer):
