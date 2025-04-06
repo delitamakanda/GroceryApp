@@ -7,7 +7,7 @@ from apps.food_panel.serializers import FoodSerializer
 class BillingAddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = BillingAddress
-        fields = '__all__'
+        exclude = ['created_at', 'updated_at',]
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
